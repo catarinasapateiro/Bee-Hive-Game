@@ -2,8 +2,6 @@
 
 **Bee Hive** is a simple and charming browser game where you help your buzzing friends gather pollen and avoid danger. The goal? Store enough pollen in the hive to survive the winter!
 
-![Bee Hive Screenshot]("./screeshots/screenshot-1.png");
-
 ## 🎮 How to Play
 
 1. Click the **▶ Start** button.
