@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bee Hive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..1000;1,100..1000&family=Andada+Pro:ital,wght@0,400..840;1,400..840&family=Lexend:wght@100..900&family=Luckiest+Guy&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+       
+    <div class="container-left">
+      <div class="titles">
+      <h1>BEE HIVE</h1>
+      <h2 class="level">Level <span class="level-span" id="level">1</span></h2>
+      </div>
+
+      <div class="score-board">
+        <h2>Score</h2>
+        <div class="score-board-container">
+        <h3 id="score-count">0</h3>        
+        <img class="flower-score-board" src="./images/flowers/flower-pink.png" alt="">
+        </div>
+      </div>
+      <div class="buttons-container">
+      <button class="button-start">▶</button>
+      <button class="button-end">||</button>
+      </div>
+   
+   <div class="sound-button-container">
+      <button id="mute-button">🔈</button>
+      </div>
+    </div>
+<div class="canvas" id="game-canvas" style="position: relative;">
+  <canvas id="board"></canvas>
+  <div id="instructions" class="instructions-container">
+    <div class="instructions-container-main">
+    <h3 class="instructions-text-main">Hey bee!</h3>
+    <img class="hive-img" src="./images/characters/hive.png" alt="hive">
+    </div>
+    <p class="instructions-text">Help the hive to store their food and prepare for winter. <span class="text-highlight">Catch </span>the polen from <span class="text-highlight">12 flowers</span> and be <span class="text-highlight"> careful</span> with the <span class="text-highlight">wasps!</span> <break> Press the <span class="text-highlight">start button</span> and off you go!</p>
+  </div>
+  
+  <div class="hide-level" id="level-passed">
+    <div class="level-passed-container">
+    <h3 class="hide-level-text" id="level-passed-text-one">Well done!</h3>
+    <img class="hive-img" src="./images/characters/hive.png" alt="hive">
+    </div>
+    <h4 class="hide-level-text" id="level-passed-text-two">
+      You passed level <span id="level-span" class="level-span">1</span>
+    </h4>
+  </div>
+</div>
+    <div class="players-info"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

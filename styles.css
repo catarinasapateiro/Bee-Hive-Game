@@ -1,0 +1,264 @@
+html,
+body {
+  display: flex;
+  justify-content: center;
+  font-family: "sans-serif", "Courier New", Courier, monospace;
+  gap: 3rem;
+}
+
+#board {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.container-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.score-board {
+  background-color: rgba(116, 196, 24, 0.6);
+  width: 20 rem;
+  height: 10rem;
+  border: transparent;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.score-board-container {
+  display: flex;
+}
+
+.flower-score-board {
+  width: 60px;
+}
+
+h1 {
+  font-family: Luckiest Guy, sans-serif;
+  font-size: 60px;
+  letter-spacing: 0.1rem;
+  margin: 1.5rem 0 0 0;
+  color: rgb(34, 27, 22);
+}
+
+h2 {
+  justify-self: center;
+}
+
+.level {
+  font-size: 2rem;
+}
+
+.button-start {
+  background-color: rgb(241, 187, 8);
+  height: 3.5rem;
+  width: 7rem;
+  border: 1px solid white;
+  border-radius: 0.8rem;
+  font-size: xx-large;
+  align-self: center;
+  justify-self: center;
+  color: rgb(34, 27, 22);
+}
+
+.button-end {
+  background-color: rgb(241, 47, 8);
+  height: 3.5rem;
+  width: 7rem;
+  padding: 0;
+  border: 1px solid white;
+  border-radius: 0.8rem;
+  font-size: xx-large;
+  align-self: center;
+  justify-self: center;
+}
+
+.canvas {
+  position: relative;
+  width: 1100px;
+  height: 900px;
+}
+
+#board {
+  display: block;
+  height: 100%;
+  background: linear-gradient(
+    202deg,
+    rgba(102, 155, 42, 1) 0%,
+    rgba(96, 199, 87, 1) 50%,
+    rgba(139, 237, 83, 1) 100%
+  );
+}
+
+.instructions-container {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 20rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  pointer-events: auto;
+  padding: 2rem;
+}
+
+.instructions-container-main {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  transition: opacity 1s ease 0s;
+}
+
+.hive-img {
+  width: 100px;
+  transform: rotateY(3.142rad);
+}
+
+.instructions-text {
+  font-size: x-large;
+  line-height: 2.5rem;
+}
+
+.instructions-text-main {
+  font-size: xx-large;
+  align-self: flex-start;
+  color: rgb(231, 127, 1);
+  text-shadow: 1px 1px 2px rgb(54, 23, 14, 0.8);
+}
+
+.text-highlight {
+  color: green;
+  font-weight: bold;
+}
+
+.instructions-hide {
+  display: none;
+}
+
+.level-passed {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 20rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+.level-passed-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+.level-span {
+  font-size: 3rem;
+  color: rgb(241, 187, 8);
+  text-shadow: 1px 1px 0px rgba(231, 127, 1, 0.8);
+}
+
+.hide-level {
+  display: none;
+}
+
+.level-passed-text {
+  font-size: xx-large;
+  color: rgb(231, 127, 1);
+  text-shadow: 1px 1px 2px rgb(54, 23, 14, 0.8);
+}
+
+.game-over {
+  font-family: Luckiest Guy, sans-serif;
+  position: absolute;
+  top: 35%;
+  right: 35%;
+  font-size: 3rem;
+  color: rgb(231, 127, 1);
+  text-shadow: 1px 1px 2px rgb(54, 23, 14, 0.8);
+}
+
+.hide-level-text {
+  color: transparent;
+}
+
+.level-passed {
+  animation: fadeInOut 2s ease-in-out forwards;
+}
+
+.glow {
+  filter: drop-shadow(0 0 15px rgb(224, 224, 11));
+  transition: filter 0.2s ease-out;
+}
+
+.sound-button-container {
+  display: flex;
+  margin-top: 17rem;
+  padding: 0;
+}
+
+#mute-button {
+  background-color: transparent;
+  width: 50px;
+  height: 50px;
+  border: none;
+  font-size: xx-large;
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .container-left {
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    gap: 5rem;
+    max-height: 200px;
+  }
+
+  .titles {
+    flex-direction: column;
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button-start,
+  .button-end {
+    height: 3.5rem;
+    width: 5.5rem;
+  }
+
+  .score-board {
+    min-width: 200px;
+  }
+
+  .sound-button-container {
+    align-self: flex-start;
+    margin-top: 1rem;
+  }
+}
