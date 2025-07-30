@@ -459,3 +459,10 @@ function clearIntervals() {
     rightFlowerInterval = null;
   }
 }
+
+let a = 20;
+let b = a;
+a = 10;
+
+console.log(a);
+console.log(b);
