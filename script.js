@@ -1,27 +1,10 @@
 //board
 let board;
 let boardWidth = 1100;
-let boardHeight = 900;
+let boardHeight = 1000;
 let context;
 let inputLocked = false;
 let gameBoard = document.getElementById("game-canvas");
-
-function resizeBoard() {
-  const aspectRatio = 4 / 3;
-  let width = window.innerWidth;
-  let height = window.innerHeight;
-
-  if (width / height > aspectRatio) {
-    width = height * aspectRatio;
-  } else {
-    height = width / aspectRatio;
-  }
-
-  boardWidth = width;
-  boardHeight = height;
-}
-
-window.addEventListener("resize", resizeBoard);
 
 //sounds
 const catchSound = new Audio("./sounds/short-success-sound.mp3");
@@ -48,6 +31,7 @@ let currentState = GAME_STATE.MENU;
 let levelPassedShown = false;
 let currentLevel = 1;
 let gameOverShown = false;
+let isPaused = true;
 
 //score count
 let score = 0;
@@ -218,7 +202,15 @@ function createWasp() {
     height: waspHeight,
     isCatched: false,
     speed: 2 + currentLevel * 0.5 + Math.random(),
+    dx: 0,
+    diagonal: false,
   };
+
+  if (currentLevel >= 2) {
+    newWasp.dx = (Math.random() > 0.5 ? 1 : -1) * (1 + currentLevel * 0.2);
+    newWasp.diagonal = true;
+    newWasp.speed += currentLevel;
+  }
 
   waspsArray.push(newWasp);
 }
@@ -301,8 +293,17 @@ function renderGame() {
 
   for (let i = 0; i < waspsArray.length; i++) {
     let w = waspsArray[i];
+
     if (!isPaused) {
       w.y += w.speed;
+
+      if (w.diagonal) {
+        w.x += w.dx;
+
+        if (w.x <= 0 || w.x + w.width >= boardWidth) {
+          w.dx *= -1;
+        }
+      }
     }
 
     if (!w.isCatched) {
@@ -326,7 +327,7 @@ function renderLevelPassed() {
     "hide-level-text",
     "level-passed-text"
   );
-  levelPassedSpan.innerText = currentLevel + 1;
+  levelPassedSpan.innerText = currentLevel;
 }
 
 function undisplayLevelPassed() {
@@ -336,16 +337,13 @@ function undisplayLevelPassed() {
     "level-passed-text",
     "hide-level-text"
   );
-  resetGame();
 }
 
 function update() {
   requestAnimationFrame(update);
   context.clearRect(0, 0, board.width, board.height);
 
-  console.log(score, "score");
-
-  if (score === 12 && !levelPassedShown) {
+  if (score >= 12 && !levelPassedShown) {
     currentState = GAME_STATE.LEVELPASSED;
     levelPassedShown = true;
 
@@ -371,43 +369,41 @@ function update() {
 //pause game
 
 function pauseGame() {
-  console.log("Pause game");
+  clearIntervals();
   moveAmount = 0;
   isPaused = true;
 }
 
 function startGame() {
   isPaused = false;
+  currentState = GAME_STATE.PLAYING;
   velocityY = 2;
   moveAmount = 75;
-  currentState = GAME_STATE.PLAYING;
-  console.log(currentState);
 
   setTimeout(() => {
     instructions.classList.remove("instructions-container");
     instructions.classList.add("instructions-hide");
   }, 3000);
 
-  undisplayLevelPassed();
+  if (levelPassedShown) {
+    undisplayLevelPassed();
+    levelPassedShown = false;
+  }
 
-  if (waspInterval) clearInterval(waspInterval);
+  clearIntervals();
+
   waspInterval = setInterval(createWasp, 5000 + Math.random() * 3000);
-
-  if (leftFlowerInterval) clearInterval(leftFlowerInterval);
-  if (rightFlowerInterval) clearInterval(rightFlowerInterval);
-
   leftFlowerInterval = setInterval(placeFlowers, 6000 + Math.random() * 2000);
   rightFlowerInterval = setInterval(placeFlowers, 12000 + Math.random() * 2000);
 }
 
 function resetGame() {
+  bee.x = boardWidth / 2.1;
   bee.y = beeY;
   flowersArray = [];
   waspsArray = [];
   score = 0;
   scoreCount.innerText = score;
-  levelPassedShown = false;
-  gameOverShown = false;
 }
 
 function gameOver() {
@@ -415,11 +411,15 @@ function gameOver() {
   gameOverShown = true;
 
   isPaused = true;
+  clearIntervals();
 
   const gameOver = document.createElement("h2");
   gameOver.className = "game-over";
   gameOver.innerText = "GAME OVER!";
   document.body.appendChild(gameOver);
+
+  resetGame();
+
   if (!isMuted) {
     gameOverSound.currentTime = 0;
     gameOverSound.play();
@@ -427,11 +427,12 @@ function gameOver() {
 
   setTimeout(() => {
     gameOver.remove();
-    resetGame();
     gameOverShown = false;
     level.innerText = currentLevel;
-    currentState = GAME_STATE.PLAYING;
-    startGame();
+
+    if (currentState !== GAME_STATE.PLAYING) {
+      startGame();
+    }
   }, 4000);
 }
 
@@ -442,4 +443,19 @@ function detectCollision(a, b) {
     a.y < b.y + b.height &&
     a.y + a.height > b.y
   );
+}
+
+function clearIntervals() {
+  if (waspInterval) {
+    clearInterval(waspInterval);
+    waspInterval = null;
+  }
+  if (leftFlowerInterval) {
+    clearInterval(leftFlowerInterval);
+    leftFlowerInterval = null;
+  }
+  if (rightFlowerInterval) {
+    clearInterval(rightFlowerInterval);
+    rightFlowerInterval = null;
+  }
 }

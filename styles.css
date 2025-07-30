@@ -191,7 +191,7 @@ h2 {
   font-family: Luckiest Guy, sans-serif;
   position: absolute;
   top: 35%;
-  right: 35%;
+  right: 38%;
   font-size: 3rem;
   color: rgb(231, 127, 1);
   text-shadow: 1px 1px 2px rgb(54, 23, 14, 0.8);
@@ -260,5 +260,7 @@ h2 {
   .sound-button-container {
     align-self: flex-start;
     margin-top: 1rem;
+    border: none;
+    outline: none;
   }
 }
